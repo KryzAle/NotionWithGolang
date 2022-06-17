@@ -1,4 +1,4 @@
-package main
+package models
 
 import (
 	"errors"
@@ -6,14 +6,12 @@ import (
 )
 
 type Skill struct {
-
-	ID        	int           
-	Name      	string         
-	CategoryID 	uint 		 
-	CreatedAt 	time.Time     
-	UpdatedAt 	time.Time      
-	DeletedAt 	time.Time 
-
+	ID         int
+	Name       string
+	CategoryID uint
+	CreatedAt  time.Time
+	UpdatedAt  time.Time
+	DeletedAt  time.Time
 }
 
 func (skill *Skill) Init(name string, CategoryID uint, UserID int) (*Skill, error) {
@@ -31,4 +29,3 @@ func (skill *Skill) Init(name string, CategoryID uint, UserID int) (*Skill, erro
 
 	return skill, nil
 }
-

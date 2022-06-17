@@ -1,10 +1,11 @@
-package main
+package adapters
 
 type ProjectFromNotionDTO struct {
 	Results []Result `json:"results"`
 }
 
 type Result struct {
+	ID         string     `json:"id"`
 	Properties Properties `json:"properties"`
 }
 
