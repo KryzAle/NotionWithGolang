@@ -37,7 +37,7 @@ func main() {
 	req.Header.Add("Accept", "application/json")
 	req.Header.Add("Notion-Version", "2022-02-22")
 	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("Authorization", "Bearer")
+	req.Header.Add("Authorization", "")
 	res, _ := http.DefaultClient.Do(req)
 	defer res.Body.Close()
 	body, _ := ioutil.ReadAll(res.Body)
@@ -46,7 +46,6 @@ func main() {
 	if err == nil {
 		errors.New("response is not in the same JSON format")
 	}
-
 	if len(response.Results) == 0 {
 		errors.New("no projects found")
 	}
@@ -58,14 +57,15 @@ func main() {
 		} else {
 			reportingTo = project.Properties.ReportingTo.RichText[0].PlainText
 		}
-		project := models.Project{
+		newProject := models.Project{
 			ID:          project.ID,
 			Name:        project.Properties.Name.Title[0].Text.Content,
+			ClientId:    project.Properties.Client.Relation[0].Id,
 			Member:      []models.Member{},
 			ReportingTo: reportingTo,
 			Status:      project.Properties.ProjectStatus.Select.Name,
 		}
-		listProjects = append(listProjects, project)
+		listProjects = append(listProjects, newProject)
 	}
 	//fmt.Println(response.Results)
 	fmt.Println(len(response.Results))
